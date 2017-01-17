@@ -136,4 +136,4 @@ for i in range(1,10):
     urlSet = getArticleList(str(i), cookies)
     allArtile = allArtile | getArticleId(urlSet)
 process(allArtile)
-#print allArtile
+#print allArtile   123
