@@ -20,8 +20,14 @@ articleDomain = 'http://weibo.com/ttarticle/p/show?id='
 #remoteCookie = {'Cookie': 'SINAGLOBAL=180004545838.58127.1478226788825; TC-Ugrow-G0=02e35d9240e6933947925d24232af628; SSOLoginState=1484533995; TC-V5-G0=458f595f33516d1bf8aecf60d4acf0bf; wb_g_upvideo_1900964351=1; _s_tentry=login.sina.com.cn; Apache=4914359893033.586.1484533998141; ULV=1484533998155:8:2:1:4914359893033.586.1484533998141:1484014332879; TC-Page-G0=e2379342ceb6c9c8726a496a5565689e; wvr=6; SCF=AunKxN5b-9Qj_8fHyis92yCtDUqeqE1j2tPOKNHhkkWv555kOBOlNaRmZ_nUd39D-IYcaY1u6d1JU0Pg6ancxnU.; SUB=_2A251eqisDeRxGedH61IY9irPzj2IHXVW8Z1krDV8PUNbmtAKLVbZkW8TH27jhksSU6Br_ltr8hKlpKCyPQ..; SUBP=0033WrSXqPxfM725Ws9jqgMF55529P9D9WWJOyNfRkxkNh0jS8bSgy.y5JpX5KMhUgL.Fo24eh54SoB0SK22dJLoI7y0UsH0IsLV9Btt; SUHB=0h1IgCQAKwffqE; ALF=1516244092; UOR=www.csdn.net,widget.weibo.com,login.sina.com.cn'}
 aricleSet = set()
 class config():
+
     def __init__(self):
-        file = open('user.conf','r')
+        self.initlizate()
+        if(self.cookieTimeout()):
+            self.update()
+            self.initlizate()
+    def initlizate(self):
+        file = open('user.conf', 'r')
         content = file.read()
         file.close()
         self.cookiesMap = json.loads(content)
@@ -31,7 +37,9 @@ class config():
         file = open('user.conf', 'wb')
         file.write(config)
         file.close()
-
+    def cookieTimeout(self):
+        content = getArticleList('1',self.cookiesMap['contentCookie'],self.cookiesMap['remoteCookie'])
+        return content == ''
 def getCookies(weibo):
     """ 获取Cookies """
     cookies = []
@@ -70,7 +78,7 @@ def getCookies(weibo):
             print "Failed!( Reason:%s )" % info['reason']
     return cookie
 
-def getArticleList(page,cookie):
+def getArticleList(page,cookie,remoteCookie):
     try:
         headers = {'encoding': 'UTF-8'}
         realArticleUrl = articleUrl+page
@@ -80,7 +88,7 @@ def getArticleList(page,cookie):
         text0 = selector.xpath('//script/text()').extract() # 获取标签里的所有text()
         for i in text0:
             try:
-                print i
+                #print i
                 tag = i[8:len(i)-1]
                 data = json.loads(tag)
                 html =  data['html']
@@ -92,12 +100,11 @@ def getArticleList(page,cookie):
 
     realRemoteArtileUrl = remoteArtileUrl+page
     print realRemoteArtileUrl
-    remote = requests.get(realRemoteArtileUrl, cookies=config['remoteCookie'])
+    remote = requests.get(realRemoteArtileUrl, cookies=remoteCookie)
     print remote.text
     data = json.loads(remote.text)
     remoteHtml = data['data']
     setArticleSet(remoteHtml)
-
     return aricleSet
 
 def setArticleSet(html):
@@ -124,7 +131,7 @@ def getArticleContent(id,cookie):
     return r.text
 
 def outputFile(title,content):
-    file = open(path+title+'.html', "wb")
+    file = open(path+title+'.html', "a")
     file.write(content.encode('utf-8'))
     file.close()
 
@@ -157,7 +164,7 @@ def insertArticeDB(idsets):
 def download(articleList):
     list = '<link rel="shortcut icon" href="favorite.ico"><link rel="apple-touch-icon-precomposed" href="favorite.jpg">'
     for i in articleList:
-        content = getArticleContent(i, config['contentCookie'])
+        content = getArticleContent(i, config['cookies'])
         print content
         title = getTitle(content)
         list = list + '<a href="'+i+'.html">'+title+'</a><br/>'
@@ -170,8 +177,8 @@ config = config().cookiesMap
 print "Get Cookies Finish!( Num:%d)" % len(config['cookies'])
 allArtileIds = getArticleDB()
 currentIds = set()
-for i in range(2,3):
-    urlSet = getArticleList(str(i), config['cookies'])
+for i in range(4,5):
+    urlSet = getArticleList(str(i), config['cookies'],config['remoteCookie'])
     currentIds = currentIds | getArticleId(urlSet)
 needProcess = currentIds - allArtileIds
 insertArticeDB(needProcess)
