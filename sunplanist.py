@@ -15,11 +15,23 @@ path = 'D:/sunplanist/'
 domain = 'http://weibo.com/'
 areadyFile = 'db.bin'
 articleDomain = 'http://weibo.com/ttarticle/p/show?id='
-cookies = dict({'SUB': '_2A251eDr2DeRxGedH61IY9irPzj2IHXVWDCs-rDV_PUNbm9AKLW3lkW9jxBxPPHtTE2oL9Ro7x3uIQDsx4A..', 'SUBP': '0033WrSXqPxfM725Ws9jqgMF55529P9D9WWJOyNfRkxkNh0jS8bSgy.y5NHD95Qp1K571KqXe0-pWs4DqcjzMNxLMcyDdJ-t', 'ALF': '1516076582', 'SCF': 'AsyQefbOlYDylg4fCtw3H3QMPF2JV8CpO-vIxNV0cOhJwr1y9KpQLywbKICnoNJWuyQxr8Io4N75502Z5V8Z-Fo.', 'ALC': 'ac%3D0%26bt%3D1484540582%26cv%3D5.0%26et%3D1516076582%26scf%3D%26uid%3D1900964351%26vf%3D0%26vs%3D1%26vt%3D0%26es%3D76d319342811f47f070777c7a21408ad', 'sso_info': 'v02m6alo5qztZOdlrmzmoalrpmSmbWalpC9jJOksIyDpLaNg4y1jJDAwA==', 'tgc': 'TGT-MTkwMDk2NDM1MQ==-1484540582-xd-94656CFB8970062D24ADEEFB3C75B24F-1', 'LT': '1484540582'})
-contentCookie = {'Cookie':'SINAGLOBAL=180004545838.58127.1478226788825; TC-Ugrow-G0=02e35d9240e6933947925d24232af628; SSOLoginState=1484533995; TC-V5-G0=458f595f33516d1bf8aecf60d4acf0bf; wb_g_upvideo_1900964351=1; _s_tentry=login.sina.com.cn; Apache=4914359893033.586.1484533998141; ULV=1484533998155:8:2:1:4914359893033.586.1484533998141:1484014332879; TC-Page-G0=e2379342ceb6c9c8726a496a5565689e; UOR=www.csdn.net,widget.weibo.com,login.sina.com.cn; SCF=AunKxN5b-9Qj_8fHyis92yCtDUqeqE1j2tPOKNHhkkWvaaHsOYZP-QxFTjFndvhGUmQX-Xb7vsiPInnoKUwWkAA.; SUB=_2A251efdeDeRxGedH61IY9irPzj2IHXVWD2-WrDV8PUNbmtAKLU7QkW9OTxN_MGwdKyPi10rGDGtDF_OgzQ..; SUBP=0033WrSXqPxfM725Ws9jqgMF55529P9D9WWJOyNfRkxkNh0jS8bSgy.y5JpX5KMhUgL.Fo24eh54SoB0SK22dJLoI7y0UsH0IsLV9Btt; SUHB=010HR9Eb3Yh3k3; ALF=1516157581; wvr=6; WBStorage=ffbf906cea1ff551|undefined'}
-remoteHeaders = {'Host': 'weibo.com','Upgrade-Insecure-Requests':'1','Accept':'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8'}
-remoteCookie = {'Cookie': 'SINAGLOBAL=180004545838.58127.1478226788825; TC-Ugrow-G0=02e35d9240e6933947925d24232af628; SSOLoginState=1484533995; TC-V5-G0=458f595f33516d1bf8aecf60d4acf0bf; wb_g_upvideo_1900964351=1; _s_tentry=login.sina.com.cn; Apache=4914359893033.586.1484533998141; ULV=1484533998155:8:2:1:4914359893033.586.1484533998141:1484014332879; TC-Page-G0=e2379342ceb6c9c8726a496a5565689e; UOR=www.csdn.net,widget.weibo.com,login.sina.com.cn; SCF=AunKxN5b-9Qj_8fHyis92yCtDUqeqE1j2tPOKNHhkkWvaaHsOYZP-QxFTjFndvhGUmQX-Xb7vsiPInnoKUwWkAA.; SUB=_2A251efdeDeRxGedH61IY9irPzj2IHXVWD2-WrDV8PUNbmtAKLU7QkW9OTxN_MGwdKyPi10rGDGtDF_OgzQ..; SUBP=0033WrSXqPxfM725Ws9jqgMF55529P9D9WWJOyNfRkxkNh0jS8bSgy.y5JpX5KMhUgL.Fo24eh54SoB0SK22dJLoI7y0UsH0IsLV9Btt; SUHB=010HR9Eb3Yh3k3; ALF=1516157581'}
+#cookies = {'Cookie':'Cookie: SINAGLOBAL=180004545838.58127.1478226788825; TC-Ugrow-G0=02e35d9240e6933947925d24232af628; SSOLoginState=1484533995; TC-V5-G0=458f595f33516d1bf8aecf60d4acf0bf; wb_g_upvideo_1900964351=1; _s_tentry=login.sina.com.cn; Apache=4914359893033.586.1484533998141; ULV=1484533998155:8:2:1:4914359893033.586.1484533998141:1484014332879; TC-Page-G0=e2379342ceb6c9c8726a496a5565689e; wvr=6; SCF=AunKxN5b-9Qj_8fHyis92yCtDUqeqE1j2tPOKNHhkkWv555kOBOlNaRmZ_nUd39D-IYcaY1u6d1JU0Pg6ancxnU.; SUB=_2A251eqisDeRxGedH61IY9irPzj2IHXVW8Z1krDV8PUNbmtAKLVbZkW8TH27jhksSU6Br_ltr8hKlpKCyPQ..; SUBP=0033WrSXqPxfM725Ws9jqgMF55529P9D9WWJOyNfRkxkNh0jS8bSgy.y5JpX5KMhUgL.Fo24eh54SoB0SK22dJLoI7y0UsH0IsLV9Btt; SUHB=0h1IgCQAKwffqE; ALF=1516244092; UOR=www.csdn.net,widget.weibo.com,login.sina.com.cn'}
+#contentCookie = {'Cookie':'SINAGLOBAL=180004545838.58127.1478226788825; TC-Ugrow-G0=02e35d9240e6933947925d24232af628; SSOLoginState=1484533995; TC-V5-G0=458f595f33516d1bf8aecf60d4acf0bf; wb_g_upvideo_1900964351=1; _s_tentry=login.sina.com.cn; Apache=4914359893033.586.1484533998141; ULV=1484533998155:8:2:1:4914359893033.586.1484533998141:1484014332879; TC-Page-G0=e2379342ceb6c9c8726a496a5565689e; UOR=www.csdn.net,widget.weibo.com,login.sina.com.cn; SCF=AunKxN5b-9Qj_8fHyis92yCtDUqeqE1j2tPOKNHhkkWvaaHsOYZP-QxFTjFndvhGUmQX-Xb7vsiPInnoKUwWkAA.; SUB=_2A251efdeDeRxGedH61IY9irPzj2IHXVWD2-WrDV8PUNbmtAKLU7QkW9OTxN_MGwdKyPi10rGDGtDF_OgzQ..; SUBP=0033WrSXqPxfM725Ws9jqgMF55529P9D9WWJOyNfRkxkNh0jS8bSgy.y5JpX5KMhUgL.Fo24eh54SoB0SK22dJLoI7y0UsH0IsLV9Btt; SUHB=010HR9Eb3Yh3k3; ALF=1516157581; wvr=6; WBStorage=ffbf906cea1ff551|undefined'}
+#remoteCookie = {'Cookie': 'SINAGLOBAL=180004545838.58127.1478226788825; TC-Ugrow-G0=02e35d9240e6933947925d24232af628; SSOLoginState=1484533995; TC-V5-G0=458f595f33516d1bf8aecf60d4acf0bf; wb_g_upvideo_1900964351=1; _s_tentry=login.sina.com.cn; Apache=4914359893033.586.1484533998141; ULV=1484533998155:8:2:1:4914359893033.586.1484533998141:1484014332879; TC-Page-G0=e2379342ceb6c9c8726a496a5565689e; wvr=6; SCF=AunKxN5b-9Qj_8fHyis92yCtDUqeqE1j2tPOKNHhkkWv555kOBOlNaRmZ_nUd39D-IYcaY1u6d1JU0Pg6ancxnU.; SUB=_2A251eqisDeRxGedH61IY9irPzj2IHXVW8Z1krDV8PUNbmtAKLVbZkW8TH27jhksSU6Br_ltr8hKlpKCyPQ..; SUBP=0033WrSXqPxfM725Ws9jqgMF55529P9D9WWJOyNfRkxkNh0jS8bSgy.y5JpX5KMhUgL.Fo24eh54SoB0SK22dJLoI7y0UsH0IsLV9Btt; SUHB=0h1IgCQAKwffqE; ALF=1516244092; UOR=www.csdn.net,widget.weibo.com,login.sina.com.cn'}
 aricleSet = set()
+class config():
+    def __init__(self):
+        file = open('user.conf','r')
+        content = file.read()
+        file.close()
+        self.cookiesMap = json.loads(content)
+    def update(self):
+        cookie = getCookies(myWeiBo)
+        config = {"cookies":cookie,"contentCookie":cookie,"remoteCookie":cookie}
+        file = open('user.conf', 'wb')
+        file.write(config)
+        file.close()
+
 def getCookies(weibo):
     """ 获取Cookies """
     cookies = []
@@ -68,7 +80,7 @@ def getArticleList(page,cookie):
         text0 = selector.xpath('//script/text()').extract() # 获取标签里的所有text()
         for i in text0:
             try:
-                #print i
+                print i
                 tag = i[8:len(i)-1]
                 data = json.loads(tag)
                 html =  data['html']
@@ -80,8 +92,8 @@ def getArticleList(page,cookie):
 
     realRemoteArtileUrl = remoteArtileUrl+page
     print realRemoteArtileUrl
-    remote = requests.get(realRemoteArtileUrl, cookies=remoteCookie,headers = remoteHeaders)
-    #print remote.text
+    remote = requests.get(realRemoteArtileUrl, cookies=config['remoteCookie'])
+    print remote.text
     data = json.loads(remote.text)
     remoteHtml = data['data']
     setArticleSet(remoteHtml)
@@ -136,28 +148,32 @@ def getArticleDB():
     return areadyArticle
 
 def insertArticeDB(idsets):
-    file = open(path + areadyFile, 'wb')
+    file = open(path + areadyFile, 'a')
     for i in idsets:
         if(i != ''):
             file.write(i+'\n')
     file.close()
 
-def process(articleList):
+def download(articleList):
     list = '<link rel="shortcut icon" href="favorite.ico"><link rel="apple-touch-icon-precomposed" href="favorite.jpg">'
     for i in articleList:
-        content = getArticleContent(i, contentCookie)
+        content = getArticleContent(i, config['contentCookie'])
         print content
         title = getTitle(content)
         list = list + '<a href="'+i+'.html">'+title+'</a><br/>'
         outputFile(i, content)
     outputFile('list',list)
 #cookies = getCookies(myWeiBo)
+config = config().cookiesMap
+''''''
 
-print "Get Cookies Finish!( Num:%d)" % len(cookies)
+print "Get Cookies Finish!( Num:%d)" % len(config['cookies'])
 allArtileIds = getArticleDB()
-for i in range(1,2):
-    urlSet = getArticleList(str(i), cookies)
-    allArtileIds = allArtileIds | getArticleId(urlSet)
-insertArticeDB(allArtileIds)
-process(allArtileIds)
+currentIds = set()
+for i in range(2,3):
+    urlSet = getArticleList(str(i), config['cookies'])
+    currentIds = currentIds | getArticleId(urlSet)
+needProcess = currentIds - allArtileIds
+insertArticeDB(needProcess)
+download(needProcess)
 #print allArtile   123
