@@ -131,8 +131,13 @@ def getArticleContent(id,cookie):
     return r.text
 
 def outputFile(title,content):
+    head = '<!DOCTYPE html> <html> <head>     <meta charset="UTF-8"/>     <meta name="viewport" content="width=device-width, initial-scale=1"/>     <link rel="shortcut icon" href="favorite.ico">     <link rel="apple-touch-icon-precomposed" sizes="144x144"           href="favorite.jpg">     <link rel="apple-touch-icon-precomposed" sizes="114x114"           href="favorite.jpg">     <link rel="apple-touch-icon-precomposed" sizes="72x72"           href="favorite.jpg">     <link rel="apple-touch-icon-precomposed"           href="favorite.jpg">     <style>         body {             color: #505050;             font-family: "SimHei", "Verdana";             font-size: 14px;             line-height: 1.42857;         }          .article {             width: 100%;         }          .article ul {             width: 90%;             /*text-align: center;*/             /*margin-left: auto;             margin-right: auto;*/             display: block;             margin-left: -40px;         }          .article > ul > li {             width: 100%;             color: inherit;             text-decoration: none;             float: left;             list-style: none;             position: relative;             display: block;             padding: 10px 15px;             margin-bottom: -1px;             border: 1px solid #ddd;         }          .article > ul > li > a {             color: inherit;             text-decoration: none;             float: left;             font-size: 1.2rem;         }     </style> </head> <body> <header>      </header> <div class="article">  '
+    footer = '</div><footer></footer> </body> </html>'
+    soup = BeautifulSoup(content)
+    miniContent = str(soup.select('div[node-type="articleContent"]')[0])
+
     file = open(path+title+'.html', "a")
-    file.write(content.encode('utf-8'))
+    file.write((head + miniContent + footer).encode('utf-8'))
     file.close()
 
 def getArticleId(urlSet):
@@ -172,6 +177,8 @@ def download(articleList):
         content = getArticleContent(i, config['cookies'])
         print content
         title = getTitle(content)
+
+
         url = url + ' <li><a href="'+i+'.html">'+title+'</a></li>'
         outputFile(i, content)
     outputFile('list',head+'\n'+url + footer)
