@@ -174,7 +174,7 @@ def download(articleList):
         title = getTitle(content)
         url = url + ' <li><a href="'+i+'.html">'+title+'</a></li>'
         outputFile(i, content)
-    outputFile('list',head+'\n'+url)
+    outputFile('list',head+'\n'+url + footer)
 #cookies = getCookies(myWeiBo)
 config = config().cookiesMap
 ''''''
