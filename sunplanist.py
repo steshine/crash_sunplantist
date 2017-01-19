@@ -198,7 +198,7 @@ config = config().cookiesMap
 print "Get Cookies Finish!( Num:%d)" % len(config['cookies'])
 allArtileIds = getArticleDB()
 currentIds = set()
-for i in range(1,12):
+for i in range(1,2):
     urlSet = getArticleList(str(i), config['cookies'],config['remoteCookie'])
     currentIds = currentIds | getArticleId(urlSet)
 needProcess = currentIds - allArtileIds
