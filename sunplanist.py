@@ -121,8 +121,11 @@ def setArticleSet(html):
 
 def getTitle(content):
     soup = BeautifulSoup(content)
-    title =  soup.select('div[node-type="articleTitle"]')[0].get_text()
-    return title
+    titles = soup.select('div[node-type="articleTitle"]')
+    if len(titles) > 0:
+        title = titles[0].get_text()
+        return title
+    return ''
 
 def getArticleContent(id,cookie):
     contentUrl = articleDomain + id
@@ -130,15 +133,14 @@ def getArticleContent(id,cookie):
     r = requests.get(contentUrl, cookies=cookie)
     return r.text
 
+def outputArticleContent(title, content):
+        file = open(path + title + '.html', "a")
+        file.write(content)
+        file.close()
+
 def outputFile(title,content):
-    head = '<!DOCTYPE html> <html> <head>     <meta charset="UTF-8"/>     <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>     <link rel="shortcut icon" href="favorite.ico">     <link rel="apple-touch-icon-precomposed" sizes="144x144"           href="favorite.jpg">     <link rel="apple-touch-icon-precomposed" sizes="114x114"           href="favorite.jpg">     <link rel="apple-touch-icon-precomposed" sizes="72x72"           href="favorite.jpg">     <link rel="apple-touch-icon-precomposed"           href="favorite.jpg">     <style>         body {  color: #505050;  font-family: "SimHei", "Verdana";  font-size: 14px;  line-height: 1.42857;  overflow-x: hidden;  }  .article {  width: auto;  max-width: 680px;  padding: 0 15px;  margin-right: auto;  margin-left: auto;  }  .title {  font-size: 1.2rem;  }  .WB_editor_iframe {  display: block !important;  visibility: inherit !important;  } img{  max-width:100%;} </style> </head> <body> <header>      </header> <div class="article">  '
-    footer = '</div><footer></footer> </body> </html>'
-    soup = BeautifulSoup(content)
-    contents = soup.select('div[node-type="articleContent"]')
-    if len(contents) > 0:
-        miniContent = str(contents[0].encode('utf-8'))
         file = open(path+title+'.html', "a")
-        file.write((head + miniContent + footer))
+        file.write(content.encode('utf-8'))
         file.close()
 
 def getArticleId(urlSet):
@@ -178,11 +180,17 @@ def download(articleList):
         content = getArticleContent(i, config['cookies'])
         print content
         title = getTitle(content)
+        if title != '':
+            headC = '<!DOCTYPE html> <html> <head>     <meta charset="UTF-8"/>     <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>     <link rel="shortcut icon" href="favorite.ico">     <link rel="apple-touch-icon-precomposed" sizes="144x144"           href="favorite.jpg">     <link rel="apple-touch-icon-precomposed" sizes="114x114"           href="favorite.jpg">     <link rel="apple-touch-icon-precomposed" sizes="72x72"           href="favorite.jpg">     <link rel="apple-touch-icon-precomposed"           href="favorite.jpg">     <style>         body {  color: #505050;  font-family: "SimHei", "Verdana";  font-size: 14px;  line-height: 1.42857;  overflow-x: hidden;  }  .article {  width: auto;  max-width: 680px;  padding: 0 15px;  margin-right: auto;  margin-left: auto;  }  .title {  font-size: 1.2rem;  }  .WB_editor_iframe {  display: block !important;  visibility: inherit !important;  } img{  max-width:100%;} </style> </head> <body> <header>      </header> <div class="article">  '
+            footerC = '</div><footer></footer> </body> </html>'
+            soup = BeautifulSoup(content)
+            contents = soup.select('div[node-type="articleContent"]')
+            if len(contents) > 0:
+                miniContent = str(contents[0].encode('utf-8'))
+                outputArticleContent(i, headC +  miniContent + footerC)
+            url = url + ' <li><a href="'+i+'.html">'+title+'</a></li>'
 
-
-        url = url + ' <li><a href="'+i+'.html">'+title+'</a></li>'
-        outputFile(i, content)
-    outputFile('list',head+'\n'+url + footer)
+    outputFile('index',head+'\n'+url + footer)
 #cookies = getCookies(myWeiBo)
 config = config().cookiesMap
 ''''''
@@ -190,7 +198,7 @@ config = config().cookiesMap
 print "Get Cookies Finish!( Num:%d)" % len(config['cookies'])
 allArtileIds = getArticleDB()
 currentIds = set()
-for i in range(2,3):
+for i in range(1,12):
     urlSet = getArticleList(str(i), config['cookies'],config['remoteCookie'])
     currentIds = currentIds | getArticleId(urlSet)
 needProcess = currentIds - allArtileIds
