@@ -162,14 +162,19 @@ def insertArticeDB(idsets):
     file.close()
 
 def download(articleList):
-    list = '<link rel="shortcut icon" href="favorite.ico"><link rel="apple-touch-icon-precomposed" href="favorite.jpg">'
+    head = '<!DOCTYPE html> <html> <head>     <meta charset="UTF-8"/>     <meta name="viewport" content="width=device-width, initial-scale=1"/>     <link rel="shortcut icon" href="favorite.ico">     <link rel="apple-touch-icon-precomposed" sizes="144x144"           href="favorite.jpg">     <link rel="apple-touch-icon-precomposed" sizes="114x114"           href="favorite.jpg">     <link rel="apple-touch-icon-precomposed" sizes="72x72"           href="favorite.jpg">     <link rel="apple-touch-icon-precomposed"           href="favorite.jpg">     <style>         body {             color: #505050;             font-family: "SimHei", "Verdana";             font-size: 14px;             line-height: 1.42857;         }          .article {             width: 100%;         }          .article ul {             width: 90%;             /*text-align: center;*/             /*margin-left: auto;             margin-right: auto;*/             display: block;             margin-left: -40px;         }          .article > ul > li {             width: 100%;             color: inherit;             text-decoration: none;             float: left;             list-style: none;             position: relative;             display: block;             padding: 10px 15px;             margin-bottom: -1px;             border: 1px solid #ddd;         }          .article > ul > li > a {             color: inherit;             text-decoration: none;             float: left;             font-size: 1.2rem;         }     </style> </head> <body> <header>      </header> <div class="article">     <ul> '
+    footer = '</ul> </div> <footer></footer> </body> </html>'
+    if(len(articleList) == 0):
+        print 'no fresh article'
+        return
+    url = ''
     for i in articleList:
         content = getArticleContent(i, config['cookies'])
         print content
         title = getTitle(content)
-        list = list + '<a href="'+i+'.html">'+title+'</a><br/>'
+        url = url + ' <li><a href="'+i+'.html">'+title+'</a></li>'
         outputFile(i, content)
-    outputFile('list',list)
+    outputFile('list',head+'\n'+url)
 #cookies = getCookies(myWeiBo)
 config = config().cookiesMap
 ''''''
@@ -177,7 +182,7 @@ config = config().cookiesMap
 print "Get Cookies Finish!( Num:%d)" % len(config['cookies'])
 allArtileIds = getArticleDB()
 currentIds = set()
-for i in range(4,5):
+for i in range(2,3):
     urlSet = getArticleList(str(i), config['cookies'],config['remoteCookie'])
     currentIds = currentIds | getArticleId(urlSet)
 needProcess = currentIds - allArtileIds
