@@ -71,18 +71,18 @@ def getCookies(weibo):
         jsonStr = r.content.decode('gbk')
         info = json.loads(jsonStr)
         if info["retcode"] == "0":
-            print "Get Cookie Success!( Account:%s )" % account
+            print ("Get Cookie Success!( Account:%s )" % account)
             cookie = session.cookies.get_dict()
             cookies.append(cookie)
         else:
-            print "Failed!( Reason:%s )" % info['reason']
+            print ("Failed!( Reason:%s )" % info['reason'])
     return cookie
 
 def getArticleList(page,cookie,remoteCookie):
     try:
         headers = {'encoding': 'UTF-8'}
         realArticleUrl = articleUrl+page
-        print realArticleUrl
+        print (realArticleUrl)
         r = requests.get(realArticleUrl,cookies = cookie,headers =headers)
         selector = Selector(text=r.text.encode('utf-8'))
         text0 = selector.xpath('//script/text()').extract() # 获取标签里的所有text()
@@ -94,14 +94,14 @@ def getArticleList(page,cookie,remoteCookie):
                 html =  data['html']
                 setArticleSet(html)
             except:
-                print ''
+                print ('')
     except:
-        print  '->  ' + str(aricleSet)
+        print  ('->  ' + str(aricleSet))
 
     realRemoteArtileUrl = remoteArtileUrl+page
-    print realRemoteArtileUrl
+    print (realRemoteArtileUrl)
     remote = requests.get(realRemoteArtileUrl, cookies=remoteCookie)
-    print remote.text
+    print (remote.text)
     data = json.loads(remote.text)
     remoteHtml = data['data']
     setArticleSet(remoteHtml)
@@ -109,18 +109,18 @@ def getArticleList(page,cookie,remoteCookie):
 
 def setArticleSet(html):
     try:
-        soup = BeautifulSoup(html)
+        soup = BeautifulSoup(html, "lxml")
         # print soup
-        linkhtml = soup.select('div[action-data*="ttarticle"]')
+        linkhtml = soup.select('div[action-type*="widget_articleLayer"]')
         # linkhtml = soup.select('div[action-data]')
         # if(linkhtml != '' ):
         for i in linkhtml:
             aricleSet.add(domain + i.get('action-data'))
     except:
-        print ''
+        print ('')
 
 def getTitle(content):
-    soup = BeautifulSoup(content)
+    soup = BeautifulSoup(content, "lxml")
     titles = soup.select('div[node-type="articleTitle"]')
     if len(titles) > 0:
         title = titles[0].get_text()
@@ -129,7 +129,7 @@ def getTitle(content):
 
 def getArticleContent(id,cookie):
     contentUrl = articleDomain + id
-    print contentUrl
+    print (contentUrl)
     r = requests.get(contentUrl, cookies=cookie)
     return r.text
 
@@ -173,17 +173,17 @@ def download(articleList):
     head = '<!DOCTYPE html> <html> <head>     <meta charset="UTF-8"/>     <meta name="viewport" content="width=device-width, initial-scale=1"/>     <link rel="shortcut icon" href="favorite.ico">     <link rel="apple-touch-icon-precomposed" sizes="144x144"           href="favorite.jpg">     <link rel="apple-touch-icon-precomposed" sizes="114x114"           href="favorite.jpg">     <link rel="apple-touch-icon-precomposed" sizes="72x72"           href="favorite.jpg">     <link rel="apple-touch-icon-precomposed"           href="favorite.jpg">     <style>         body {             color: #505050;             font-family: "SimHei", "Verdana";             font-size: 14px;             line-height: 1.42857;         }          .article {             width: 100%;         }          .article ul {             width: 90%;             /*text-align: center;*/             /*margin-left: auto;             margin-right: auto;*/             display: block;             margin-left: -40px;         }          .article > ul > li {             width: 100%;             color: inherit;             text-decoration: none;             float: left;             list-style: none;             position: relative;             display: block;             padding: 10px 15px;             margin-bottom: -1px;             border: 1px solid #ddd;         }          .article > ul > li > a {             color: inherit;             text-decoration: none;             float: left;             font-size: 1.2rem;         }     </style> </head> <body> <header>      </header> <div class="article">     <ul> '
     footer = '</ul> </div> <footer></footer> </body> </html>'
     if(len(articleList) == 0):
-        print 'no fresh article'
+        print( 'no fresh article')
         return
     url = ''
     for i in articleList:
         content = getArticleContent(i, config['cookies'])
-        print content
+        print (content)
         title = getTitle(content)
         if title != '':
             headC = '<!DOCTYPE html> <html> <head>     <meta charset="UTF-8"/>     <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>     <link rel="shortcut icon" href="favorite.ico">     <link rel="apple-touch-icon-precomposed" sizes="144x144"           href="favorite.jpg">     <link rel="apple-touch-icon-precomposed" sizes="114x114"           href="favorite.jpg">     <link rel="apple-touch-icon-precomposed" sizes="72x72"           href="favorite.jpg">     <link rel="apple-touch-icon-precomposed"           href="favorite.jpg">     <style>         body {  color: #505050;  font-family: "SimHei", "Verdana";  font-size: 14px;  line-height: 1.42857;  overflow-x: hidden;  }  .article {  width: auto;  max-width: 680px;  padding: 0 15px;  margin-right: auto;  margin-left: auto;  }  .title {  font-size: 1.2rem;  }  .WB_editor_iframe {  display: block !important;  visibility: inherit !important;  } img{  max-width:100%;} </style> </head> <body> <header>      </header> <div class="article">  '
             footerC = '</div><footer></footer> </body> </html>'
-            soup = BeautifulSoup(content)
+            soup = BeautifulSoup(content, "lxml")
             contents = soup.select('div[node-type="articleContent"]')
             if len(contents) > 0:
                 miniContent = str(contents[0].encode('utf-8'))
@@ -195,7 +195,7 @@ def download(articleList):
 config = config().cookiesMap
 ''''''
 
-print "Get Cookies Finish!( Num:%d)" % len(config['cookies'])
+print ("Get Cookies Finish!( Num:%d)" % len(config['cookies']))
 allArtileIds = getArticleDB()
 currentIds = set()
 for i in range(0,14):
